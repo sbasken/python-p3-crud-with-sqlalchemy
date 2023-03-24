@@ -103,3 +103,7 @@ if __name__ == '__main__':
     #         Student.name, Student.birthday).order_by(
     #         desc(Student.grade)).first()
     # print(oldest_student)
+
+    ###COUNT STUDENTS###
+    student_count = session.query(func.count(Student.id)).first()
+    print(student_count)
