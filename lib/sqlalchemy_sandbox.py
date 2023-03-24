@@ -83,12 +83,14 @@ if __name__ == '__main__':
     # students_by_name = session.query(
     #     Student.name).order_by(
     #     Student.name).all()
+    # 
     # print(students_by_name)
 
     ###PRINT NAME BY GRADE (DESCENDING)###
     # students_by_grade_desc = session.query(
     #         Student.name, Student.grade).order_by(
     #         desc(Student.grade)).all()
+    # 
     # print(students_by_grade_desc)
 
 
@@ -96,6 +98,7 @@ if __name__ == '__main__':
     # oldest_student = session.query(
     #         Student.name, Student.birthday).order_by(
     #         desc(Student.grade)).limit(1).all()
+    # 
     # print(oldest_student)
 
     #TO FIND OLDEST STUDENT BY GRADE (NOT BY BIRTHDAY!!) USING .first()
@@ -105,5 +108,51 @@ if __name__ == '__main__':
     # print(oldest_student)
 
     ###COUNT STUDENTS###
-    student_count = session.query(func.count(Student.id)).first()
-    print(student_count)
+    # student_count = session.query(func.count(Student.id)).first()
+    # print(student_count)
+
+    ###FILTERING###
+    # query = session.query(Student).filter(Student.name.like('%Alan%'),
+    # Student.grade == 11).all()
+    # 
+    # for record in query:
+    #     print(record.name)
+
+    ###UPDATING DATA###
+    # for student in session.query(Student):
+    #     student.grade += 1
+    # 
+    # session.commit()
+    # 
+    # print([(student.name,
+    #     student.grade) for student in session.query(Student)])
+
+    ###UPDATING WITHOUT CREATING OBJECTS BEFOREHAND###
+    # session.query(Student).update({
+    #     Student.grade: Student.grade + 1
+    # })
+    # 
+    # print([(
+    #     student.name,
+    #     student.grade
+    # ) for student in session.query(Student)])
+
+    ###DELETING DATA###
+    query = session.query(
+        Student).filter(
+            Student.name == "Albert Einstein")        
+
+    # retrieve first matching record as object
+    albert_einstein = query.first()
+
+    # delete record
+    session.delete(albert_einstein)
+    session.commit()
+
+    # try to retrieve deleted record
+    albert_einstein = query.first()
+
+    print(albert_einstein)
+
+
+
